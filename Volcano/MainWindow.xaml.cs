@@ -9,13 +9,14 @@ using System.Threading.Tasks;
 
 namespace Volcano
 {
+    public delegate void NewNumberNotify();
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
         private Random _random;
-
+        public event NewNumberNotify NumberExited;
         private List<Model.Player> _players;
         private int _luckeyPosition1;
         private int _luckeyPosition2;
@@ -58,10 +59,10 @@ namespace Volcano
             _players.Add(new Model.Player("Milica"));
             _players.Add(new Model.Player("Ivana"));
 
-            List<string> playerNames = new List<string> { "Borko", 
-                "Teodora", 
-                "Mico", 
-                "Zeljko", 
+            List<string> playerNames = new List<string> { "Borko",
+                "Teodora",
+                "Mico",
+                "Zeljko",
                 "Vukoman",
                 "Milica",
                 "Ivana"
@@ -144,34 +145,28 @@ namespace Volcano
 
             ticket.lblBetAmmount.Content = mTicket.BetAmmount.ToString();
             spTicketContainer.Children.Add(ticket);
-
-
         }
 
         private async void btnStart_Click(object sender, RoutedEventArgs e)
         {
             NewGame();
-            await Task.Run(() =>
+            // Game Loop
+            for (int i = 0; i < 35; i++)
             {
-                // Game Loop
-                for (int i = 0; i < 35; i++)
-                {
-                    int index = _random.Next(0, _numbersInGame.Count);
-                    int number = _numbersInGame.ToArray()[index];
-                    this.Dispatcher.Invoke((Action)(() =>
-                    {
-                        lblCurrentNumber.Content = number.ToString();
-                    
-                        (this.FindName($"lblNum{i + 1}") as Label).Content = number.ToString();
+                int index = _random.Next(0, _numbersInGame.Count);
+                int number = _numbersInGame.ToArray()[index];
+                lblCurrentNumber.Content = number.ToString();
 
-                        Thread.Sleep(500);
-                        lblCurrentNumber.Content = "";
+                await Task.Delay(300);
 
-                        _numbersInGame.RemoveAt(index);
-                    }));
-                }
-            });
+                (this.FindName($"lblNum{i + 1}") as Label).Content = number.ToString();
+                NumberExited();
+
+                await Task.Delay(500);
+
+                lblCurrentNumber.Content = "";
+                _numbersInGame.RemoveAt(index);
+            }
         }
-
     }
 }
