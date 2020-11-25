@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Volcano.Model
 {
-    class Account
+    public class Account
     {
         public Player Owner { get; set; }
         public decimal Saldo { get; private set; }

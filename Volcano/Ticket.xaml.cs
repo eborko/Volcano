@@ -18,13 +18,38 @@ namespace Volcano
     /// </summary>
     public partial class Ticket : UserControl
     {
-        private Model.Ticket ticket;
+        private Random _random;
+        public Model.Ticket MTicket { get; set; }
+        private KeyValuePair<int, List<int>> bettingCircle;
+
         public Ticket()
         {
             InitializeComponent();
-            Model.Player player = new Model.Player("Borko");
-            ticket = new Model.Ticket();
-            ticket.Player = player;
+
+            _random = new Random();
+            bettingCircle = new KeyValuePair<int, List<int>>();
+        }
+
+        public void UpdateNumbersInfo(int number)
+        {
+            if (MTicket.Numbers.Contains(number))
+            {
+                UpdateTicketNumbers(number);
+                
+                //bettingCircle.Value.Add(number);
+            }
+        }
+
+        private void UpdateTicketNumbers(int number)
+        {
+            for (int i = 1; i < 7; i++)
+            {
+                Label label = (Label)this.FindName($"lblBetNum{i}");
+                if (number == Int32.Parse(label.Content.ToString()))
+                {
+                    label.Foreground = new SolidColorBrush(Colors.Green);
+                }
+            }
         }
     }
 }

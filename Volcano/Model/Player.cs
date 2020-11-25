@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Volcano.Model
 {
-    class Player
+    public class Player
     {
         public string Name { get; set; }
         public List<Ticket> Tickets { get; private set; }
@@ -13,6 +13,7 @@ namespace Volcano.Model
         public Player(string name)
         {
             this.Name = name;
+            Tickets = new List<Ticket>();
         }
 
         public void AddTicket(Ticket ticket)

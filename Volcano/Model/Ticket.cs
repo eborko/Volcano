@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Volcano.Model
 {
-    class Ticket
+    public class Ticket
     {
         public int GameNumber { get; set; }
         public Player Player { get; set; }

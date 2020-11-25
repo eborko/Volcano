@@ -9,14 +9,18 @@ using System.Threading.Tasks;
 
 namespace Volcano
 {
-    public delegate void NewNumberNotify();
+    public delegate void NewNumberNotify(int number);
+    public delegate void NewJackpotNumNotify(int number);
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
         private Random _random;
+
         public event NewNumberNotify NumberExited;
+        public event NewJackpotNumNotify JackpotNumNotify;
+
         private List<Model.Player> _players;
         private int _luckeyPosition1;
         private int _luckeyPosition2;
@@ -47,7 +51,6 @@ namespace Volcano
                 _numbersInGame.Add(i);
             }
             _players = new List<Model.Player>();
-
 
             #region TetsPlayers
             // Lets say we have those players
@@ -112,9 +115,11 @@ namespace Volcano
         private void btnSaveTicket_Click(object sender, RoutedEventArgs e)
         {
             Ticket ticket = new Ticket();
+            NumberExited += ticket.UpdateNumbersInfo;
             Model.Ticket mTicket = new Model.Ticket();
             mTicket.BetAmmount = 1.0m;
 
+            // Fill numbers
             for (int i = 1; i < 7; i++)
             {
                 TextBox tbTemp = ((TextBox)this.FindName($"tbBetNum{i}"));
@@ -130,6 +135,7 @@ namespace Volcano
                 ((Label)ticket.FindName($"lblBetNum{i}")).Content = number.ToString();
 
                 mTicket.AddNumber(number);
+                ticket.MTicket = mTicket;
             }
 
             foreach (var player in _players)
@@ -150,6 +156,16 @@ namespace Volcano
         private async void btnStart_Click(object sender, RoutedEventArgs e)
         {
             NewGame();
+            
+            foreach (var player in _players)
+            {
+                foreach (var t in player.Tickets)
+                {
+                    JackpotNumNotify += t.RegisterJPNumber;
+                    //NumberExited += t.;
+                }
+            }
+
             // Game Loop
             for (int i = 0; i < 35; i++)
             {
@@ -160,7 +176,13 @@ namespace Volcano
                 await Task.Delay(300);
 
                 (this.FindName($"lblNum{i + 1}") as Label).Content = number.ToString();
-                NumberExited();
+                NumberExited?.Invoke(number);
+                
+                // Jackpot creator
+                if (i == 15 || i == 19 || i == 23 || i == 27 || i == 35 )
+                {
+                    JackpotNumNotify?.Invoke(number);
+                }
 
                 await Task.Delay(500);
 

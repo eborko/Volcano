@@ -10,12 +10,12 @@
         <StackPanel>
             <Label Name="lblPlayerName" FontWeight="Bold" FontSize="20" Content="player"/>
             <StackPanel Orientation="Horizontal">
-                <Label Name="lblBetNum1">48</Label>
-                <Label Name="lblBetNum2">48</Label>
-                <Label Name="lblBetNum3">48</Label>
-                <Label Name="lblBetNum4">48</Label>
-                <Label Name="lblBetNum5">48</Label>
-                <Label Name="lblBetNum6">48</Label>
+                <Label Name="lblBetNum1" FontSize="20" FontWeight="Bold">48</Label>
+                <Label Name="lblBetNum2" FontSize="20" FontWeight="Bold">48</Label>
+                <Label Name="lblBetNum3" FontSize="20" FontWeight="Bold">48</Label>
+                <Label Name="lblBetNum4" FontSize="20" FontWeight="Bold">48</Label>
+                <Label Name="lblBetNum5" FontSize="20" FontWeight="Bold">48</Label>
+                <Label Name="lblBetNum6" FontSize="20" FontWeight="Bold">48</Label>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Your bet:" FontWeight="Bold" FontSize="15"/>
