@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="Volcano.Ticket"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Volcano"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="300">
+    <Border BorderBrush="Gray" BorderThickness="10">
+        <StackPanel>
+            <Label Name="lblPlayerName" FontWeight="Bold" FontSize="20" Content="player"/>
+            <StackPanel Orientation="Horizontal">
+                <Label Name="lblBetNum1">48</Label>
+                <Label Name="lblBetNum2">48</Label>
+                <Label Name="lblBetNum3">48</Label>
+                <Label Name="lblBetNum4">48</Label>
+                <Label Name="lblBetNum5">48</Label>
+                <Label Name="lblBetNum6">48</Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Your bet:" FontWeight="Bold" FontSize="15"/>
+                <Label Name="lblBetAmmount" FontWeight="Bold" FontSize="15" Content="0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Winning:" FontWeight="Bold" FontSize="15"/>
+                <Label Name="lblWinningAmmount" FontWeight="Bold" FontSize="15" Content="0"/>
+            </StackPanel>
+        </StackPanel>
+        </Border>
+</UserControl>
